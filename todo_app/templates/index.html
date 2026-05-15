@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>Список дел</title>
+ <style>
+   /* ПУНКТ 2: Сделать фон страницы светло-серым, а заголовок — синим */
+   body { 
+     font-family: Arial; 
+     margin: 40px; 
+     background-color: lightgray; 
+   }
+   h1 { 
+     color: blue; 
+   }
+   .done { text-decoration: line-through; color: gray; }
+   ul { list-style: none; padding: 0; }
+   li { margin: 10px 0; }
+ </style>
+</head>
+<body>
+ <h1>Мои задачи</h1>
+ 
+ <!-- ПУНКТ 1: Кнопка "Очистить всё", которая удаляет все задачи -->
+ <form action="/clear_all" method="POST" style="margin-bottom: 20px;">
+   <button type="submit">Очистить всё</button>
+ </form>
+ 
+ <ul>
+ {% for task in tasks %}
+ <li>
+   <!-- ПУНКТ 3*: Вывод текста и даты создания задачи -->
+   {{ task.text }} (Дата создания: {{ task.date }})
+   <a href="/delete/{{ loop.index0 }}">Удалить</a>
+ </li>
+ {% endfor %}
+ </ul>
+
+ <h2>Добавить задачу</h2>
+ <form method="POST" action="/add">
+  <input type="text" name="task" placeholder="Новая задача" required>
+  <button type="submit">Добавить</button>
+ </form>
+</body>
+</html>
